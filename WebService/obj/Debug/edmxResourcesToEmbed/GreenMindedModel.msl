@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="GreenMindedModelStoreContainer" CdmEntityContainer="GreenMindedEntities">
+    <EntitySetMapping Name="answers">
+      <EntityTypeMapping TypeName="GreenMindedModel.answers">
+        <MappingFragment StoreEntitySet="answers">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="response_left" ColumnName="response_left" />
+          <ScalarProperty Name="response_right" ColumnName="response_right" />
+          <ScalarProperty Name="count_left" ColumnName="count_left" />
+          <ScalarProperty Name="count_right" ColumnName="count_right" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="clients">
+      <EntityTypeMapping TypeName="GreenMindedModel.clients">
+        <MappingFragment StoreEntitySet="clients">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="business_name" ColumnName="business_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="questions">
+      <EntityTypeMapping TypeName="GreenMindedModel.questions">
+        <MappingFragment StoreEntitySet="questions">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="label" ColumnName="label" />
+          <ScalarProperty Name="date_start" ColumnName="date_start" />
+          <ScalarProperty Name="date_end" ColumnName="date_end" />
+          <ScalarProperty Name="station_id" ColumnName="station_id" />
+          <ScalarProperty Name="answer_id" ColumnName="answer_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="stations">
+      <EntityTypeMapping TypeName="GreenMindedModel.stations">
+        <MappingFragment StoreEntitySet="stations">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="mac_address" ColumnName="mac_address" />
+          <ScalarProperty Name="long" ColumnName="long" />
+          <ScalarProperty Name="lat" ColumnName="lat" />
+          <ScalarProperty Name="client_id" ColumnName="client_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SPI_Answer" FunctionName="GreenMindedModel.Store.SPI_Answer">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="GreenMindedModel.SPI_Answer_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="response_left" ColumnName="response_left" />
+          <ScalarProperty Name="response_right" ColumnName="response_right" />
+          <ScalarProperty Name="count_left" ColumnName="count_left" />
+          <ScalarProperty Name="count_right" ColumnName="count_right" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SPI_Client" FunctionName="GreenMindedModel.Store.SPI_Client">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="GreenMindedModel.SPI_Client_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="business_name" ColumnName="business_name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SPI_Question" FunctionName="GreenMindedModel.Store.SPI_Question">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="GreenMindedModel.SPI_Question_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="label" ColumnName="label" />
+          <ScalarProperty Name="date_start" ColumnName="date_start" />
+          <ScalarProperty Name="date_end" ColumnName="date_end" />
+          <ScalarProperty Name="station_id" ColumnName="station_id" />
+          <ScalarProperty Name="answer_id" ColumnName="answer_id" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SPI_QuestionAnswer" FunctionName="GreenMindedModel.Store.SPI_QuestionAnswer">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="GreenMindedModel.SPI_QuestionAnswer_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="label" ColumnName="label" />
+          <ScalarProperty Name="date_start" ColumnName="date_start" />
+          <ScalarProperty Name="date_end" ColumnName="date_end" />
+          <ScalarProperty Name="station_id" ColumnName="station_id" />
+          <ScalarProperty Name="answer_id" ColumnName="answer_id" />
+          <ScalarProperty Name="response_left" ColumnName="response_left" />
+          <ScalarProperty Name="response_right" ColumnName="response_right" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SPI_Station" FunctionName="GreenMindedModel.Store.SPI_Station">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="GreenMindedModel.SPI_Station_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="mac_address" ColumnName="mac_address" />
+          <ScalarProperty Name="long" ColumnName="long" />
+          <ScalarProperty Name="lat" ColumnName="lat" />
+          <ScalarProperty Name="client_id" ColumnName="client_id" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

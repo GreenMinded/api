@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GreenMindedModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="answers">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="response_left" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="response_right" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="count_left" Type="Int32" />
+    <Property Name="count_right" Type="Int32" />
+    <NavigationProperty Name="questions" Relationship="Self.FK__questions__answe__440B1D61" FromRole="answers" ToRole="questions" />
+  </EntityType>
+  <EntityType Name="clients">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="business_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="stations" Relationship="Self.FK__stations__client__4222D4EF" FromRole="clients" ToRole="stations" />
+  </EntityType>
+  <EntityType Name="questions">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="label" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="date_start" Type="DateTime" Precision="3" />
+    <Property Name="date_end" Type="DateTime" Precision="3" />
+    <Property Name="station_id" Type="Int32" />
+    <Property Name="answer_id" Type="Int32" />
+    <NavigationProperty Name="answers" Relationship="Self.FK__questions__answe__440B1D61" FromRole="questions" ToRole="answers" />
+    <NavigationProperty Name="stations" Relationship="Self.FK__questions__stati__4316F928" FromRole="questions" ToRole="stations" />
+  </EntityType>
+  <EntityType Name="stations">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="mac_address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="long" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="lat" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="client_id" Type="Int32" />
+    <NavigationProperty Name="clients" Relationship="Self.FK__stations__client__4222D4EF" FromRole="stations" ToRole="clients" />
+    <NavigationProperty Name="questions" Relationship="Self.FK__questions__stati__4316F928" FromRole="stations" ToRole="questions" />
+  </EntityType>
+  <Association Name="FK__questions__answe__440B1D61">
+    <End Role="answers" Type="Self.answers" Multiplicity="0..1" />
+    <End Role="questions" Type="Self.questions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="answers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="questions">
+        <PropertyRef Name="answer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__stations__client__4222D4EF">
+    <End Role="clients" Type="Self.clients" Multiplicity="0..1" />
+    <End Role="stations" Type="Self.stations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clients">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="stations">
+        <PropertyRef Name="client_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__questions__stati__4316F928">
+    <End Role="stations" Type="Self.stations" Multiplicity="0..1" />
+    <End Role="questions" Type="Self.questions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="stations">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="questions">
+        <PropertyRef Name="station_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="GreenMindedEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="answers" EntityType="Self.answers" />
+    <EntitySet Name="clients" EntityType="Self.clients" />
+    <EntitySet Name="questions" EntityType="Self.questions" />
+    <EntitySet Name="stations" EntityType="Self.stations" />
+    <AssociationSet Name="FK__questions__answe__440B1D61" Association="Self.FK__questions__answe__440B1D61">
+      <End Role="answers" EntitySet="answers" />
+      <End Role="questions" EntitySet="questions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__stations__client__4222D4EF" Association="Self.FK__stations__client__4222D4EF">
+      <End Role="clients" EntitySet="clients" />
+      <End Role="stations" EntitySet="stations" />
+    </AssociationSet>
+    <AssociationSet Name="FK__questions__stati__4316F928" Association="Self.FK__questions__stati__4316F928">
+      <End Role="stations" EntitySet="stations" />
+      <End Role="questions" EntitySet="questions" />
+    </AssociationSet>
+    <FunctionImport Name="SPI_Answer" ReturnType="Collection(GreenMindedModel.SPI_Answer_Result)" />
+    <FunctionImport Name="SPI_Client" ReturnType="Collection(GreenMindedModel.SPI_Client_Result)" />
+    <FunctionImport Name="SPI_Question" ReturnType="Collection(GreenMindedModel.SPI_Question_Result)" />
+    <FunctionImport Name="SPI_QuestionAnswer" ReturnType="Collection(GreenMindedModel.SPI_QuestionAnswer_Result)" />
+    <FunctionImport Name="SPI_Station" ReturnType="Collection(GreenMindedModel.SPI_Station_Result)" />
+  </EntityContainer>
+  <ComplexType Name="SPI_Answer_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="response_left" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="response_right" Nullable="true" MaxLength="255" />
+    <Property Type="Int32" Name="count_left" Nullable="true" />
+    <Property Type="Int32" Name="count_right" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SPI_Client_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="business_name" Nullable="true" MaxLength="255" />
+  </ComplexType>
+  <ComplexType Name="SPI_Question_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="label" Nullable="true" MaxLength="255" />
+    <Property Type="DateTime" Name="date_start" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="date_end" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="station_id" Nullable="true" />
+    <Property Type="Int32" Name="answer_id" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SPI_QuestionAnswer_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="label" Nullable="true" MaxLength="255" />
+    <Property Type="DateTime" Name="date_start" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="date_end" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="station_id" Nullable="true" />
+    <Property Type="Int32" Name="answer_id" Nullable="true" />
+    <Property Type="String" Name="response_left" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="response_right" Nullable="true" MaxLength="255" />
+  </ComplexType>
+  <ComplexType Name="SPI_Station_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="mac_address" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="long" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="lat" Nullable="true" MaxLength="255" />
+    <Property Type="Int32" Name="client_id" Nullable="true" />
+  </ComplexType>
+</Schema>
